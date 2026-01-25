@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { validateBook } = require("../../middleware-library/src");
 
 // GET /books
 router.get("/", (req, res) => {
@@ -7,8 +8,8 @@ router.get("/", (req, res) => {
 });
 
 // POST /books
-router.post("/", (req, res) => {
-	res.json({ message: "Create a new book (not implemented)" });
+router.post("/", validateBook, (req, res) => {
+	res.json({ message: "Book passed validation middleware" });
 });
 
 // GET /books/:id
