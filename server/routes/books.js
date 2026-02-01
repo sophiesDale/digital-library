@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { validateBook } = require("../../middleware-library/src");
+const { validateBook } = require("../middleware/library");
 
 // GET /books
 router.get("/", (req, res) => {
@@ -8,12 +8,12 @@ router.get("/", (req, res) => {
 });
 
 // POST /books
-router.post("/", validateBook, (req, res) => {
+router.post("/books", validateBook, (req, res) => {
 	res.json({ message: "Book passed validation middleware" });
 });
 
 // GET /books/:id
-router.get("/:id", (req, res) => {
+router.get("/books/:id", (req, res) => {
 	res.json({
 		message: "Get book by id (not implemented)",
 		id: req.params.id,
@@ -21,7 +21,7 @@ router.get("/:id", (req, res) => {
 });
 
 // PUT /books/:id
-router.put("/:id", (req, res) => {
+router.put("/books/:id", (req, res) => {
 	res.json({
 		message: "Update book (not implemented)",
 		id: req.params.id,
@@ -29,7 +29,7 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE /books/:id
-router.delete("/:id", (req, res) => {
+router.delete("/books/:id", (req, res) => {
 	res.json({
 		message: "Delete book (not implemented)",
 		id: req.params.id,
@@ -37,7 +37,7 @@ router.delete("/:id", (req, res) => {
 });
 
 // PATCH /books/:id/status
-router.patch("/:id/status", (req, res) => {
+router.patch("/books/:id/status", (req, res) => {
 	const { status } = req.body;
 
 	res.json({
