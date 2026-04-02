@@ -2,8 +2,43 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Home</title>
+		<title>My Books</title>
+		<link rel="stylesheet" href="../main.css" />
 	</head>
-	<body></body>
+	<body>
+		<nav class="navbar">
+			<div class="nav-left">
+				<a href="./homePage.html">
+					<svg class="icon" viewBox="0 0 24 24">
+						<path d="M3 10L12 3L21 10V20H3V10Z" />
+					</svg>
+				</a>
+			</div>
+			<a href="./frontPage.html" class="btn logout">Logout</a>
+		</nav>
+
+		<main class="container">
+			<h1>My Books</h1>
+
+			<a href="./addBooks.html" class="btn add-btn">+ Add Book</a>
+
+			<div class="book-list">
+				<div class="book-item">
+					<span>1. Book title</span>
+					<div>
+						<button class="btn small">Edit</button>
+						<button class="btn small danger">Delete</button>
+					</div>
+				</div>
+
+				<div class="book-item">
+					<span>2. Another book</span>
+					<div>
+						<button class="btn small">Edit</button>
+						<button class="btn small danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
 </html>

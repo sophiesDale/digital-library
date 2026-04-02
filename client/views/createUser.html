@@ -2,8 +2,73 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Create user</title>
+		<title>Create User</title>
+		<link rel="stylesheet" href="../main.css" />
 	</head>
-	<body></body>
+	<body>
+		<main class="center">
+			<div class="card form-card">
+				<h1>Create Account</h1>
+
+				<form class="form">
+					<div class="row">
+						<input type="text" placeholder="Username" required />
+						<input type="email" placeholder="Email" required />
+						<input type="password" placeholder="Password" required />
+					</div>
+
+					<label class="checkbox">
+						<input type="checkbox" required />
+						I agree to the
+						<span class="link" onclick="openModal()"
+							>Terms of Service & Privacy Policy</span
+						>
+					</label>
+
+					<button class="btn">Create Account</button>
+				</form>
+			</div>
+		</main>
+
+		<!-- MODAL -->
+		<div id="modal" class="modal hidden">
+			<div class="modal-content">
+				<h2>Terms & Privacy</h2>
+
+				<div class="modal-text">
+					<h3>Terms of Service</h3>
+					<p>
+						This application allows users to create and manage a personal
+						digital library...
+					</p>
+
+					<h4>Your responsibilities</h4>
+					<ul>
+						<li>Choosing your username</li>
+						<li>Keeping your password private</li>
+					</ul>
+
+					<h3>Privacy Policy</h3>
+					<p>We only collect what is necessary...</p>
+
+					<ul>
+						<li>Username</li>
+						<li>Password (hashed)</li>
+					</ul>
+				</div>
+
+				<button class="btn" onclick="closeModal()">Close</button>
+			</div>
+		</div>
+
+		<script>
+			function openModal() {
+				document.getElementById("modal").classList.remove("hidden");
+			}
+
+			function closeModal() {
+				document.getElementById("modal").classList.add("hidden");
+			}
+		</script>
+	</body>
 </html>
