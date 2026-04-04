@@ -226,3 +226,35 @@
   margin: 1rem 0;
   font-size: 0.9rem;
 }
+
+.user-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btn.big {
+  padding: 1rem 2rem;
+  border-radius: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #F4C9D6; /* your pink */
+  cursor: pointer;
+}

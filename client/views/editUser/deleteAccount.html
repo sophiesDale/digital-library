@@ -2,14 +2,14 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Add Book</title>
-		<link rel="stylesheet" href="../main.css" />
+		<title>Delete Account</title>
+		<link rel="stylesheet" href="../../main.css" />
 	</head>
+
 	<body>
-		<!-- NAVBAR -->
 		<nav class="navbar">
 			<div class="nav-left">
-				<a href="./homePage.html">
+				<a href="../homePage.html">
 					<svg class="icon" viewBox="0 0 24 24">
 						<path d="M3 10L12 3L21 10V20H3V10Z" />
 					</svg>
@@ -17,7 +17,7 @@
 			</div>
 
 			<div class="nav-right">
-				<a href="./userPage.html">
+				<a href="../userPage.html">
 					<svg class="icon" viewBox="0 0 24 24">
 						<path
 							d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"
@@ -28,18 +28,11 @@
 				<button class="btn logout">Logout</button>
 			</div>
 		</nav>
-		<!-- MAIN -->
-		<main class="container">
-			<div class="card form-card">
-				<h1>Add Books</h1>
 
-				<form class="form">
-					<input type="text" placeholder="Title" required />
-					<input type="text" placeholder="Author" required />
-
-					<button class="btn add-btn">Add Book</button>
-				</form>
-			</div>
+		<main class="center">
+			<user-widget mode="delete"></user-widget>
 		</main>
+
+		<script src="../../components/userWidget.js"></script>
 	</body>
 </html>
