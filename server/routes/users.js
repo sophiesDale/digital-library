@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser, deleteUser } = require("../data/userService");
+const { createUser, deleteUser } = require("../data/usersService");
 
 const router = express.Router();
 
