@@ -1,68 +1,43 @@
-const crypto = require("crypto");
-const users = require("./users");
+const pool = require("../db");
 
-function createUser({ username, password, consent }) {
+// Create user
+async function createUser(data) {
+	const { username, password } = data;
+
 	if (!username || !password) {
-		throw new Error("Username and password are required");
+		throw new Error("Username and password required");
 	}
 
-	if (consent !== true) {
-		throw new Error(
-			"You must agree to the Terms of Service and Privacy Policy"
-		);
-	}
+	const result = await pool.query(
+		"INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
+		[username, password]
+	);
 
-	const passwordHash = crypto
-		.createHash("sha256")
-		.update(password)
-		.digest("hex");
-
-	const user = {
-		id: crypto.randomUUID(),
-		username,
-		passwordHash,
-		consentGiven: true,
-		consentedAt: new Date().toISOString(),
-		createdAt: new Date().toISOString(),
-	};
-
-	users.push(user);
-
-	return {
-		id: user.id,
-		username: user.username,
-		createdAt: user.createdAt,
-	};
+	return result.rows[0];
 }
 
-function deleteUser(id, password) {
-	if (!password) {
-		throw new Error("Password is required to delete account");
+// Get all users
+async function getUsers() {
+	const result = await pool.query("SELECT * FROM users");
+	return result.rows;
+}
+
+// Delete user
+async function deleteUser(id, password) {
+	const result = await pool.query(
+		"DELETE FROM users WHERE id = $1 AND password = $2 RETURNING *",
+		[id, password]
+	);
+
+	if (result.rows.length === 0) {
+		throw new Error("User not found or wrong password");
 	}
 
-	const userIndex = users.findIndex((u) => u.id === id);
-
-	if (userIndex === -1) {
-		throw new Error("User not found");
-	}
-
-	const user = users[userIndex];
-
-	const passwordHash = crypto
-		.createHash("sha256")
-		.update(password)
-		.digest("hex");
-
-	if (passwordHash !== user.passwordHash) {
-		throw new Error("Incorrect password");
-	}
-
-	users.splice(userIndex, 1);
-
-	return { message: "Account deleted and consent withdrawn" };
+	return { message: "User deleted" };
 }
 
 module.exports = {
 	createUser,
+	getUsers,
 	deleteUser,
 };
