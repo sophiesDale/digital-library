@@ -1,6 +1,5 @@
 import { apiFetch } from "./api.js";
 
-// 🟢 CREATE USER
 export function createUser(data) {
 	return apiFetch("/users", {
 		method: "POST",
@@ -8,7 +7,10 @@ export function createUser(data) {
 	});
 }
 
-// 🔴 DELETE USER
+export function getUsers() {
+	return apiFetch("/users");
+}
+
 export function deleteUser(userId, password) {
 	return apiFetch(`/users/${userId}`, {
 		method: "DELETE",

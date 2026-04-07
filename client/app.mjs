@@ -1,9 +1,11 @@
 import { initBookPage } from "./controllers/bookController.js";
 import { initAddBookPage } from "./controllers/addBookController.js";
+import { initUserPage } from "./controllers/userController.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	initBookPage();
 	initAddBookPage();
+	initUserPage();
 
 	const logoutButtons = document.querySelectorAll(".logout");
 

@@ -1,5 +1,10 @@
 const express = require("express");
-const { createUser, getUsers, deleteUser } = require("../data/usersService");
+const {
+	createUser,
+	loginUser,
+	deleteUser,
+	getUsers,
+} = require("../data/usersService");
 
 const router = express.Router();
 
@@ -10,6 +15,19 @@ router.post("/", async (req, res) => {
 		res.status(201).json(user);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
+	}
+});
+
+// LOGIN user
+router.post("/login", async (req, res) => {
+	try {
+		const { username, password } = req.body;
+
+		const user = await loginUser(username, password);
+
+		res.json(user);
+	} catch (err) {
+		res.status(401).json({ error: err.message });
 	}
 });
 

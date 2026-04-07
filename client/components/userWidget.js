@@ -8,6 +8,21 @@ class UserWidget extends HTMLElement {
 	}
 
 	render() {
+		// LOG IN
+		if (this.mode === "login") {
+			this.innerHTML = `
+                <div class="card form-card">
+                    <h1>Log In</h1>
+        
+                    <form id="login-form" class="form">
+                        <input name="username" type="text" placeholder="Username" required />
+                        <input name="password" type="password" placeholder="Password" required />
+                        <button class="btn">Log In</button>
+                    </form>
+                </div>
+            `;
+		}
+
 		// CREATE USER
 		if (this.mode === "create") {
 			this.innerHTML = `
@@ -162,6 +177,41 @@ class UserWidget extends HTMLElement {
 	}
 
 	attachEvents() {
+		// LOG IN
+		if (this.mode === "login") {
+			const form = this.querySelector("#login-form");
+
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+
+				const data = Object.fromEntries(new FormData(form));
+
+				try {
+					const response = await fetch(
+						"https://digital-library-o2b0.onrender.com/users"
+					);
+
+					const users = await response.json();
+
+					const user = users.find(
+						(u) => u.username === data.username && u.password === data.password
+					);
+
+					if (!user) {
+						alert("Login failed");
+						return;
+					}
+
+					localStorage.setItem("userId", user.id);
+					alert("Login successful");
+
+					window.location.href = "./homePage.html";
+				} catch (err) {
+					alert("Server error");
+				}
+			});
+		}
+
 		// CREATE USER
 		if (this.mode === "create") {
 			const form = this.querySelector("#create-form");

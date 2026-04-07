@@ -1,4 +1,7 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL =
+	window.location.hostname === "localhost"
+		? "http://localhost:3001"
+		: "https://digital-library-o2b0.onrender.com";
 
 export async function apiFetch(endpoint, options = {}) {
 	const res = await fetch(BASE_URL + endpoint, {
