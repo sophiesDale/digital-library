@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	logoutButtons.forEach((btn) => {
 		btn.addEventListener("click", () => {
 			localStorage.removeItem("userId");
-			window.location.href = "/client/views/frontPage.html";
+
+			// ✅ FIXED PATH
+			window.location.href = "/";
 		});
 	});
 });

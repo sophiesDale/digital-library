@@ -1,4 +1,4 @@
-import { createUser, getUsers } from "../api_service/usersService.js";
+import { createUser } from "../api_service/usersService.js";
 
 export function initUserPage() {
 	const createForm = document.getElementById("createUserForm");
@@ -28,21 +28,27 @@ export function initUserPage() {
 			const password = document.querySelector("#password").value;
 
 			try {
-				const users = await getUsers();
+				const response = await fetch("/users/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ username, password }),
+				});
 
-				const user = users.find(
-					(u) => u.username === username && u.password === password
-				);
+				const result = await response.json();
 
-				if (!user) {
-					alert("Login failed");
-				} else {
-					localStorage.setItem("userId", user.id);
-					alert("Login successful");
-					window.location.href = "homePage.html";
+				if (!response.ok) {
+					alert(result.error || "Login failed");
+					return;
 				}
+
+				localStorage.setItem("userId", result.id);
+				alert("Login successful");
+
+				window.location.href = "/homePage.html";
 			} catch (err) {
-				alert(err.message);
+				alert("Server error");
 			}
 		});
 	}
