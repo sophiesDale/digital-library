@@ -209,20 +209,37 @@ class UserWidget extends HTMLElement {
 			form.addEventListener("submit", async (e) => {
 				e.preventDefault();
 
-				const formData = new FormData(form);
-				const password = formData.get("password");
+				const data = Object.fromEntries(new FormData(form));
 				const userId = localStorage.getItem("userId");
 
 				try {
-					await deleteUser(userId, password);
+					const response = await fetch(
+						`http://localhost:3001/users/${userId}`,
+						{
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								password: data.password,
+							}),
+						}
+					);
 
-					alert("Account deleted");
+					const result = await response.json();
 
+					// ❗ CHECK IF FAILED
+					if (!response.ok) {
+						alert(result.error || "Failed to delete account");
+						return; // STOP HERE
+					}
+
+					// ✅ SUCCESS
 					localStorage.removeItem("userId");
-
-					window.location.href = "../frontPage.html";
-				} catch (err) {
-					alert(err.message);
+					window.location.href = "/client/views/frontPage.html";
+				} catch (error) {
+					console.error(error);
+					alert("Server error");
 				}
 			});
 		}
