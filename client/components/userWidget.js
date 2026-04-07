@@ -187,25 +187,28 @@ class UserWidget extends HTMLElement {
 				const data = Object.fromEntries(new FormData(form));
 
 				try {
-					const response = await fetch(
-						"https://digital-library-o2b0.onrender.com/users"
-					);
+					const response = await fetch("/users/login", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							username: data.username,
+							password: data.password,
+						}),
+					});
 
-					const users = await response.json();
+					const result = await response.json();
 
-					const user = users.find(
-						(u) => u.username === data.username && u.password === data.password
-					);
-
-					if (!user) {
-						alert("Login failed");
+					if (!response.ok) {
+						alert(result.error || "Login failed");
 						return;
 					}
 
-					localStorage.setItem("userId", user.id);
+					localStorage.setItem("userId", result.id);
 					alert("Login successful");
 
-					window.location.href = "./homePage.html";
+					window.location.href = "/homePage.html";
 				} catch (err) {
 					alert("Server error");
 				}
@@ -245,7 +248,7 @@ class UserWidget extends HTMLElement {
 
 					localStorage.setItem("userId", result.id);
 
-					window.location.href = "./homePage.html";
+					window.location.href = "/homePage.html";
 				} catch (err) {
 					alert(err.message);
 				}
@@ -263,18 +266,15 @@ class UserWidget extends HTMLElement {
 				const userId = localStorage.getItem("userId");
 
 				try {
-					const response = await fetch(
-						`http://localhost:3001/users/${userId}`,
-						{
-							method: "DELETE",
-							headers: {
-								"Content-Type": "application/json",
-							},
-							body: JSON.stringify({
-								password: data.password,
-							}),
-						}
-					);
+					const response = await fetch(`/users/${userId}`, {
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							password: data.password,
+						}),
+					});
 
 					const result = await response.json();
 
