@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const pool = require("./db");
 
 const bookRoutes = require("./routes/books");
@@ -12,11 +13,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 👇 SERVE FRONTEND
+app.use(express.static(path.join(__dirname, "../client")));
+
+// 👇 ROUTES
 app.use("/books", bookRoutes);
 app.use("/users", userRoutes);
 
+// 👇 LOAD FRONT PAGE
 app.get("/", (req, res) => {
-	res.send("Server running");
+	res.sendFile(path.join(__dirname, "../client/views/frontPage.html"));
 });
 
 async function createTable() {
