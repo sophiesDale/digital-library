@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const books = require("../data/books");
 const crypto = require("crypto");
-const { validateBook } = require("../middleware/library/index.js");
+const { validateBook } = require("../middleware/library/index");
 
 // GET /books (get all books)
 router.get("/", (req, res) => {
