@@ -1,100 +1,67 @@
-export async function apiFetch(url, options = {}) {
-	const response = await fetch(url, {
-		headers: { "Content-Type": "application/json" },
-		...options,
-	});
-
-	return response.json();
-}
-
-//----------------------------------------------------------------------------
+import { initBookPage } from "./controllers/bookController.js";
+import { initAddBookPage } from "./controllers/addBookController.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+	initBookPage();
+	initAddBookPage();
+
 	const logoutButtons = document.querySelectorAll(".logout");
 
 	logoutButtons.forEach((btn) => {
 		btn.addEventListener("click", () => {
-			console.log("Logout clicked");
-
 			localStorage.removeItem("userId");
-
 			window.location.href = "/client/views/frontPage.html";
 		});
 	});
 });
 
-//----------------------------------------------------------------------------
+export function showToast(message, type = "success") {
+	let toast = document.getElementById("toast");
 
-import { createBook } from "./api_service/booksService.js";
-
-document.addEventListener("DOMContentLoaded", () => {
-	if (window.location.pathname.includes("addBooks.html")) {
-		const form = document.querySelector("form");
-
-		if (!form) return;
-
-		form.addEventListener("submit", async (e) => {
-			e.preventDefault();
-
-			const data = Object.fromEntries(new FormData(form));
-
-			try {
-				await createBook({
-					title: data.title,
-					author: data.author,
-					status: data.status || "unread",
-				});
-
-				alert("Book added!");
-
-				window.location.href = "./homePage.html";
-			} catch (error) {
-				alert(error.message);
-			}
-		});
+	if (!toast) {
+		toast = document.createElement("div");
+		toast.id = "toast";
+		toast.style.cssText = `
+			position: fixed;
+			top: 40px;
+			left: 50%;
+			transform: translateX(-50%) scale(0.9);
+			padding: 16px 26px;
+			border-radius: 999px;
+			font-size: 16px;
+			font-weight: 500;
+			opacity: 0;
+			transition: all 0.25s ease;
+			z-index: 1000;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			background: var(--espresso);
+			color: var(--peony);
+			border: 2px solid rgba(244, 201, 214, 0.6);
+		`;
+		document.body.appendChild(toast);
 	}
-});
 
-//----------------------------------------------------------------------
+	const styles = {
+		success: { icon: "💗" },
+		error: { icon: "💔" },
+		warning: { icon: "⚠️" },
+		info: { icon: "✨" },
+	};
 
-import { getBooks } from "./api_service/booksService.js";
+	const selected = styles[type] || styles.success;
 
-document.addEventListener("DOMContentLoaded", () => {
-	if (window.location.pathname.includes("homePage.html")) {
-		const list = document.querySelector(".book-list");
+	toast.innerHTML = `<span>${selected.icon}</span><span>${message}</span>`;
 
-		if (!list) return;
+	requestAnimationFrame(() => {
+		toast.style.opacity = "1";
+		toast.style.transform = "translateX(-50%) scale(1)";
+	});
 
-		loadBooks(list);
-	}
-});
-
-async function loadBooks(container) {
-	try {
-		const books = await getBooks();
-
-		container.innerHTML = "";
-
-		if (books.length === 0) {
-			container.innerHTML = "<p>No books yet</p>";
-			return;
-		}
-
-		books.forEach((book, index) => {
-			const div = document.createElement("div");
-			div.className = "book-item";
-
-			div.innerHTML = `
-        <span>${index + 1}. ${book.title} - ${book.author}</span>
-        <div>
-          <button class="btn small">Edit</button>
-          <button class="btn small danger">Delete</button>
-        </div>
-      `;
-
-			container.appendChild(div);
-		});
-	} catch (error) {
-		console.error("Failed to load books:", error);
-	}
+	setTimeout(() => {
+		toast.style.opacity = "0";
+		toast.style.transform = "translateX(-50%) scale(0.9)";
+	}, 1500);
 }
