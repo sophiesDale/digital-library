@@ -34,8 +34,14 @@
 				<h1>Add Books</h1>
 
 				<form class="form">
-					<input type="text" placeholder="Title" required />
-					<input type="text" placeholder="Author" required />
+					<input name="title" type="text" placeholder="Title" required />
+					<input name="author" type="text" placeholder="Author" required />
+
+					<select name="status">
+						<option value="unread">Unread</option>
+						<option value="reading">Reading</option>
+						<option value="finished">Finished</option>
+					</select>
 
 					<button class="btn add-btn">Add Book</button>
 				</form>

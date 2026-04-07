@@ -1,50 +1,87 @@
 const express = require("express");
 const router = express.Router();
+const books = require("../data/books");
+const crypto = require("crypto");
 const { validateBook } = require("../middleware/library");
 
-// GET /books
+// GET /books (get all books)
 router.get("/", (req, res) => {
-	res.json({ message: "Get all books (not implemented)" });
+	res.json(books);
 });
 
-// POST /books
-router.post("/books", validateBook, (req, res) => {
-	res.json({ message: "Book passed validation middleware" });
+// POST /books (create book)
+router.post("/", validateBook, (req, res) => {
+	const { title, author, status } = req.body;
+
+	const newBook = {
+		id: crypto.randomUUID(),
+		title,
+		author,
+		status,
+	};
+
+	books.push(newBook);
+
+	res.status(201).json(newBook);
 });
 
-// GET /books/:id
-router.get("/books/:id", (req, res) => {
-	res.json({
-		message: "Get book by id (not implemented)",
-		id: req.params.id,
-	});
+// GET /books/:id (get single book)
+router.get("/:id", (req, res) => {
+	const book = books.find((b) => b.id === req.params.id);
+
+	if (!book) {
+		return res.status(404).json({ error: "Book not found" });
+	}
+
+	res.json(book);
 });
 
-// PUT /books/:id
-router.put("/books/:id", (req, res) => {
-	res.json({
-		message: "Update book (not implemented)",
-		id: req.params.id,
-	});
+// PUT /books/:id (update entire book)
+router.put("/:id", (req, res) => {
+	const index = books.findIndex((b) => b.id === req.params.id);
+
+	if (index === -1) {
+		return res.status(404).json({ error: "Book not found" });
+	}
+
+	const { title, author, status } = req.body;
+
+	books[index] = {
+		id: books[index].id,
+		title,
+		author,
+		status,
+	};
+
+	res.json(books[index]);
 });
 
 // DELETE /books/:id
-router.delete("/books/:id", (req, res) => {
-	res.json({
-		message: "Delete book (not implemented)",
-		id: req.params.id,
-	});
+router.delete("/:id", (req, res) => {
+	const index = books.findIndex((b) => b.id === req.params.id);
+
+	if (index === -1) {
+		return res.status(404).json({ error: "Book not found" });
+	}
+
+	books.splice(index, 1);
+
+	res.json({ message: "Book deleted" });
 });
 
-// PATCH /books/:id/status
-router.patch("/books/:id/status", (req, res) => {
+// PATCH /books/:id/status (update only status)
+router.patch("/:id/status", (req, res) => {
+	const book = books.find((b) => b.id === req.params.id);
+
+	if (!book) {
+		return res.status(404).json({ error: "Book not found" });
+	}
+
 	const { status } = req.body;
 
-	res.json({
-		message: "Update reading status (not implemented)",
-		id: req.params.id,
-		status,
-	});
+	book.status = status;
+
+	res.json(book);
 });
 
 module.exports = router;
