@@ -1,4 +1,4 @@
-import { createUser, deleteUser } from "../api_service/userService.js";
+import { createUser, deleteUser } from "../api_service/usersService.js";
 
 class UserWidget extends HTMLElement {
 	connectedCallback() {
