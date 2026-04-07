@@ -16,16 +16,9 @@ app.use(express.json());
 // SERVE FRONTEND
 app.use(express.static(path.join(__dirname, "../client")));
 
-// ROUTES
+// API ROUTES
 app.use("/books", bookRoutes);
 app.use("/users", userRoutes);
-
-// LOAD FRONT PAGE
-app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname, "../client/views/frontPage.html"));
-});
-
-const path = require("path");
 
 // FRONT PAGE
 app.get("/", (req, res) => {
@@ -53,7 +46,7 @@ app.get("/addBooks.html", (req, res) => {
 	res.sendFile(path.join(__dirname, "../client/views/addBooks.html"));
 });
 
-// EDIT USER ROUTES
+// EDIT USER
 app.get("/editUser/editUserName.html", (req, res) => {
 	res.sendFile(
 		path.join(__dirname, "../client/views/editUser/editUserName.html")
@@ -72,6 +65,7 @@ app.get("/editUser/deleteAccount.html", (req, res) => {
 	);
 });
 
+// DB INIT
 async function createTable() {
 	try {
 		await pool.query(`
