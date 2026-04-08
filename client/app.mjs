@@ -1,25 +1,57 @@
 import { initBookPage } from "./controllers/bookController.js";
 import { initAddBookPage } from "./controllers/addBookController.js";
 import { initUserPage } from "./controllers/userController.js";
+import { translations } from "./i18n.js";
+
+export function getLang() {
+	return (
+		localStorage.getItem("lang") ||
+		(navigator.language.startsWith("no") ? "no" : "en")
+	);
+}
+
+export function t(key) {
+	const lang = getLang();
+	return translations[lang][key] || key;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 	initBookPage();
 	initAddBookPage();
 	initUserPage();
 
-	const logoutButtons = document.querySelectorAll(".logout");
+	const switcher = document.getElementById("lang-switch");
+	if (switcher) {
+		switcher.value = getLang();
+		switcher.addEventListener("change", () => {
+			localStorage.setItem("lang", switcher.value);
+			location.reload();
+		});
+	}
 
-	logoutButtons.forEach((btn) => {
+	document.querySelectorAll(".logout").forEach((btn) => {
+		btn.textContent = t("logout");
 		btn.addEventListener("click", () => {
 			localStorage.removeItem("userId");
-
-			// ✅ FIXED PATH
 			window.location.href = "/";
+		});
+	});
+
+	const map = {
+		".title": "title",
+		".login-text": "login",
+		".create-text": "createAccount",
+		".add-book-text": "addBook",
+	};
+
+	Object.entries(map).forEach(([selector, key]) => {
+		document.querySelectorAll(selector).forEach((el) => {
+			el.textContent = t(key);
 		});
 	});
 });
 
-export function showToast(message, type = "success") {
+export function showToast(message) {
 	let toast = document.getElementById("toast");
 
 	if (!toast) {
@@ -29,43 +61,22 @@ export function showToast(message, type = "success") {
 			position: fixed;
 			top: 40px;
 			left: 50%;
-			transform: translateX(-50%) scale(0.9);
-			padding: 16px 26px;
+			transform: translateX(-50%);
+			padding: 12px 20px;
 			border-radius: 999px;
-			font-size: 16px;
-			font-weight: 500;
 			opacity: 0;
-			transition: all 0.25s ease;
+			transition: 0.2s;
+			background: black;
+			color: white;
 			z-index: 1000;
-			box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			background: var(--espresso);
-			color: var(--peony);
-			border: 2px solid rgba(244, 201, 214, 0.6);
 		`;
 		document.body.appendChild(toast);
 	}
 
-	const styles = {
-		success: { icon: "💗" },
-		error: { icon: "💔" },
-		warning: { icon: "⚠️" },
-		info: { icon: "✨" },
-	};
-
-	const selected = styles[type] || styles.success;
-
-	toast.innerHTML = `<span>${selected.icon}</span><span>${message}</span>`;
-
-	requestAnimationFrame(() => {
-		toast.style.opacity = "1";
-		toast.style.transform = "translateX(-50%) scale(1)";
-	});
+	toast.textContent = message;
+	toast.style.opacity = "1";
 
 	setTimeout(() => {
 		toast.style.opacity = "0";
-		toast.style.transform = "translateX(-50%) scale(0.9)";
 	}, 1500);
 }

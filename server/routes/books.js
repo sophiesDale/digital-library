@@ -7,52 +7,41 @@ const {
 	deleteBook,
 	updateBook,
 } = require("../data/booksService");
+const { getLang } = require("../i18n");
 
-// GET all books (for user)
 router.get("/", async (req, res) => {
 	try {
 		const userId = req.query.userId;
-
 		const books = await getBooks(userId);
-
 		res.json(books);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
 });
 
-// CREATE book
 router.post("/", async (req, res) => {
 	try {
-		const { title, author, status, userId } = req.body;
-
-		const book = await createBook({
-			title,
-			author,
-			status,
-			userId,
-		});
-
+		const book = await createBook(req.body);
 		res.status(201).json(book);
 	} catch (err) {
 		res.status(400).json({ error: err.message });
 	}
 });
 
-// UPDATE
 router.put("/:id", async (req, res) => {
+	const lang = getLang(req);
 	try {
-		const updated = await updateBook(req.params.id, req.body);
+		const updated = await updateBook(req.params.id, req.body, lang);
 		res.json(updated);
 	} catch (err) {
 		res.status(400).json({ error: err.message });
 	}
 });
 
-// DELETE
 router.delete("/:id", async (req, res) => {
+	const lang = getLang(req);
 	try {
-		await deleteBook(req.params.id);
+		await deleteBook(req.params.id, lang);
 		res.json({ message: "Deleted" });
 	} catch (err) {
 		res.status(400).json({ error: err.message });
