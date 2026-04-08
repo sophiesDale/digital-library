@@ -1,3 +1,14 @@
+import { apiFetch } from "../api_service/api.js";
+import { getBooks } from "../api_service/booksService.js";
+
+export function initBookPage() {
+	if (!window.location.pathname.includes("homePage.html")) return;
+
+	const list = document.querySelector(".book-list");
+	if (!list) return;
+
+	loadBooks(list);
+}
 async function loadBooks(container) {
 	try {
 		const userId = localStorage.getItem("userId");
