@@ -19,12 +19,18 @@
     color: var(--peony);
     padding: 1rem 2rem;
   }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
   
   /* MAIN */
   .container {
-    max-width: 900px;   /* 👈 controls width */
-    margin: 0 auto;     /* 👈 centers everything */
-    padding: 2rem 1rem; /* 👈 spacing inside */
+    max-width: 900px;   
+    margin: 0 auto;     
+    padding: 2rem 1rem; 
   }
   
   h1 {
@@ -258,4 +264,40 @@
   fill: #F4C9D6; /* your pink */
   cursor: pointer;
 }
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 
+	background: var(--espresso);
+	color: var(--peony);
+
+	border: 2px solid rgba(244, 201, 214, 0.6);
+	border-radius: 999px;
+
+	padding: 8px 36px 8px 14px;
+	font-size: 14px;
+	font-weight: 500;
+
+	cursor: pointer;
+	outline: none;
+
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+	background-image: url("data:image/svg+xml;utf8,<svg fill='%23f4c9d6' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 10px center;
+	background-size: 16px;
+}
+
+select:hover {
+	transform: scale(1.03);
+}
+
+select:focus {
+	border-color: var(--peony);
+	box-shadow: 0 0 0 3px rgba(244, 201, 214, 0.3);
+}
+.navbar select {
+	margin-right: 10px;
+}

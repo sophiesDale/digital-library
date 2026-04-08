@@ -5,23 +5,28 @@
 		<title>Create User</title>
 		<link rel="stylesheet" href="/main.css" />
 	</head>
-	<nav class="navbar">
-		<div class="nav-left">
-			<a href="/">←</a>
-		</div>
-
-		<div class="nav-right">
-			<select id="lang-switch">
-				<option value="en">EN</option>
-				<option value="no">NO</option>
-			</select>
-		</div>
-	</nav>
 	<body>
+		<nav class="navbar">
+			<div class="nav-left">
+				<a href="/">
+					<svg class="icon" viewBox="0 0 24 24">
+						<path d="M15 18L9 12L15 6" />
+					</svg>
+				</a>
+			</div>
+
+			<div class="nav-right">
+				<select id="lang-switch">
+					<option value="en">EN</option>
+					<option value="no">NO</option>
+				</select>
+			</div>
+		</nav>
 		<main class="center">
 			<user-widget mode="create"></user-widget>
 		</main>
 
+		<script type="module" src="/app.mjs"></script>
 		<script type="module" src="/components/userWidget.js"></script>
 	</body>
 </html>

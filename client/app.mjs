@@ -49,6 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
 			el.textContent = t(key);
 		});
 	});
+	// translate ALL elements with data-i18n
+	document.querySelectorAll("[data-i18n]").forEach((el) => {
+		const key = el.getAttribute("data-i18n");
+		el.textContent = t(key);
+	});
+
+	// translate placeholders
+	document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+		const key = el.getAttribute("data-i18n-placeholder");
+		el.placeholder = t(key);
+	});
 });
 
 export function showToast(message) {
@@ -58,18 +69,30 @@ export function showToast(message) {
 		toast = document.createElement("div");
 		toast.id = "toast";
 		toast.style.cssText = `
-			position: fixed;
-			top: 40px;
-			left: 50%;
-			transform: translateX(-50%);
-			padding: 12px 20px;
-			border-radius: 999px;
-			opacity: 0;
-			transition: 0.2s;
-			background: black;
-			color: white;
-			z-index: 1000;
-		`;
+	position: fixed;
+	top: 40px;
+	left: 50%;
+	transform: translateX(-50%) scale(0.9);
+	padding: 16px 28px;
+	border-radius: 999px;
+	font-size: 15px;
+	font-weight: 500;
+	opacity: 0;
+	transition: all 0.3s ease;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	background: linear-gradient(135deg, #4b2e2e, #6b3f3f);
+	color: #f4c9d6;
+
+	border: 2px solid rgba(244, 201, 214, 0.6);
+
+	box-shadow:
+		0 8px 25px rgba(0,0,0,0.2),
+		0 0 20px rgba(244, 201, 214, 0.25);
+`;
 		document.body.appendChild(toast);
 	}
 

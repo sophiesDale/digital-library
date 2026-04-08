@@ -2,26 +2,26 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>My User</title>
+		<title>User</title>
 		<link rel="stylesheet" href="/main.css" />
 	</head>
 	<body>
-		<!-- NAVBAR -->
 		<nav class="navbar">
 			<div class="nav-left">
-				<a href="./homePage.html">
+				<a href="/homePage.html">
 					<svg class="icon" viewBox="0 0 24 24">
 						<path d="M3 10L12 3L21 10V20H3V10Z" />
 					</svg>
 				</a>
 			</div>
-            <div class="nav-right">
-                <select id="lang-switch">
-                    <option value="en">EN</option>
-                    <option value="no">NO</option>
-                </select>
+
 			<div class="nav-right">
-				<a href="./userPage.html">
+				<select id="lang-switch">
+					<option value="en">EN</option>
+					<option value="no">NO</option>
+				</select>
+
+				<a href="/userPage.html">
 					<svg class="icon" viewBox="0 0 24 24">
 						<path
 							d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"
@@ -29,25 +29,32 @@
 					</svg>
 				</a>
 
-				<button class="btn logout">Logout</button>
+				<button class="btn logout"></button>
 			</div>
 		</nav>
-		<!-- MAIN -->
+
 		<main class="container">
-			<h1>My User</h1>
+			<h1 data-i18n="userPage"></h1>
 
 			<div class="user-actions">
-				<a href="./editUser/editUserName.html" class="btn big"
-					>Change Username</a
-				>
-				<a href="./editUser/editPassword.html" class="btn big"
-					>Change Password</a
-				>
-				<a href="./editUser/deleteAccount.html" class="btn danger big"
-					>Delete Account</a
-				>
+				<a
+					href="/editUser/editUserName.html"
+					class="btn big"
+					data-i18n="changeUsername"
+				></a>
+				<a
+					href="/editUser/editPassword.html"
+					class="btn big"
+					data-i18n="changePassword"
+				></a>
+				<a
+					href="/editUser/deleteAccount.html"
+					class="btn danger big"
+					data-i18n="deleteAccount"
+				></a>
 			</div>
 		</main>
+
 		<script type="module" src="/app.mjs"></script>
 	</body>
 </html>

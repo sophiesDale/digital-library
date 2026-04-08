@@ -8,31 +8,36 @@
 	<body>
 		<nav class="navbar">
 			<div class="nav-left">
-				<a href="./homePage.html">
+				<a href="/homePage.html">
 					<svg class="icon" viewBox="0 0 24 24">
 						<path d="M3 10L12 3L21 10V20H3V10Z" />
 					</svg>
 				</a>
 			</div>
+
 			<div class="nav-right">
 				<select id="lang-switch">
 					<option value="en">EN</option>
 					<option value="no">NO</option>
 				</select>
-			<div class="nav-right">
-				<a href="./userPage.html">
+
+				<a href="/userPage.html">
 					<svg class="icon" viewBox="0 0 24 24">
-						<path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+						<path
+							d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"
+						/>
 					</svg>
 				</a>
 
-				<button class="btn logout">Logout</button>
+				<button class="btn logout"></button>
 			</div>
 		</nav>
 
 		<main class="container">
-			<h1>My Books</h1>
-			<a href="./addBooks.html" class="btn add-btn">+ Add Book</a>
+			<h1 data-i18n="books"></h1>
+
+			<a href="/addBooks.html" class="btn add-btn" data-i18n="addBook"></a>
+
 			<div class="book-list"></div>
 		</main>
 

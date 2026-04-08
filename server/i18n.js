@@ -7,6 +7,8 @@ const messages = {
 		bookNotFound: "Book not found",
 		updateFailed: "Update failed",
 		deleteFailed: "Delete failed",
+		serverError: "Server error",
+		success: "Success",
 	},
 
 	no: {
@@ -17,16 +19,27 @@ const messages = {
 		bookNotFound: "Fant ikke bok",
 		updateFailed: "Oppdatering feilet",
 		deleteFailed: "Sletting feilet",
+		serverError: "Serverfeil",
+		success: "Vellykket",
 	},
 };
 
 function getLang(req) {
-	const lang = req.headers["accept-language"];
-	return lang && lang.startsWith("no") ? "no" : "en";
+	const header = req.headers["accept-language"];
+
+	if (!header) return "en";
+
+	const lang = header.toLowerCase();
+
+	if (lang.startsWith("no") || lang.startsWith("nb") || lang.startsWith("nn")) {
+		return "no";
+	}
+
+	return "en";
 }
 
 function t(lang, key) {
-	return messages[lang]?.[key] || key;
+	return messages[lang]?.[key] || messages.en[key] || key;
 }
 
 module.exports = { getLang, t };
