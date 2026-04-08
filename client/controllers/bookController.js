@@ -1,18 +1,7 @@
-import { apiFetch } from "../api_service/api.js";
-import { getBooks } from "../api_service/booksService.js";
-
-export function initBookPage() {
-	if (!window.location.pathname.includes("homePage.html")) return;
-
-	const list = document.querySelector(".book-list");
-	if (!list) return;
-
-	loadBooks(list);
-}
-
 async function loadBooks(container) {
 	try {
-		const books = await getBooks();
+		const userId = localStorage.getItem("userId");
+		const books = await getBooks(userId);
 
 		container.innerHTML = "";
 
@@ -38,81 +27,36 @@ async function loadBooks(container) {
 
 			const deleteBtn = div.querySelector(".delete-btn");
 
-			deleteBtn.addEventListener("click", () => {
-				div.innerHTML = `
-		  <span>Delete "${book.title}"?</span>
-		  <div>
-			<button class="btn small danger confirm-delete">Delete</button>
-			<button class="btn small cancel-delete">Cancel</button>
-		  </div>
-		`;
-
-				const confirmBtn = div.querySelector(".confirm-delete");
-				const cancelBtn = div.querySelector(".cancel-delete");
-
-				confirmBtn.addEventListener("click", async () => {
-					await apiFetch(`/books/${book.id}`, {
-						method: "DELETE",
-					});
-
-					div.remove();
+			deleteBtn.addEventListener("click", async () => {
+				await apiFetch(`/books/${book.id}`, {
+					method: "DELETE",
 				});
 
-				cancelBtn.addEventListener("click", () => {
-					loadBooks(container); // reload original UI
-				});
+				loadBooks(container);
 			});
 
 			const editBtn = div.querySelector(".edit-btn");
 
-			editBtn.addEventListener("click", () => {
-				div.innerHTML = `
-    <input class="edit-title" value="${book.title}" />
-    <input class="edit-author" value="${book.author}" />
-    
-    <select class="edit-status">
-      <option value="unread" ${
-				book.status === "unread" ? "selected" : ""
-			}>Unread</option>
-      <option value="reading" ${
-				book.status === "reading" ? "selected" : ""
-			}>Reading</option>
-      <option value="finished" ${
-				book.status === "finished" ? "selected" : ""
-			}>Finished</option>
-    </select>
+			editBtn.addEventListener("click", async () => {
+				const newTitle = prompt("New title:", book.title);
+				const newAuthor = prompt("New author:", book.author);
+				const newStatus = prompt(
+					"Status (unread/reading/finished):",
+					book.status
+				);
 
-    <div>
-      <button class="btn small save-btn">Save</button>
-      <button class="btn small cancel-btn">Cancel</button>
-    </div>
-  `;
-
-				const saveBtn = div.querySelector(".save-btn");
-				const cancelBtn = div.querySelector(".cancel-btn");
-
-				saveBtn.addEventListener("click", async () => {
-					const newTitle = div.querySelector(".edit-title").value;
-					const newAuthor = div.querySelector(".edit-author").value;
-					const newStatus = div.querySelector(".edit-status").value;
-
-					const updated = await apiFetch(`/books/${book.id}`, {
-						method: "PUT",
-						body: JSON.stringify({
-							title: newTitle,
-							author: newAuthor,
-							status: newStatus,
-						}),
-					});
-
-					// re-render
-					loadBooks(container);
+				await apiFetch(`/books/${book.id}`, {
+					method: "PUT",
+					body: JSON.stringify({
+						title: newTitle,
+						author: newAuthor,
+						status: newStatus,
+					}),
 				});
 
-				cancelBtn.addEventListener("click", () => {
-					loadBooks(container);
-				});
+				loadBooks(container);
 			});
+
 			container.appendChild(div);
 		});
 	} catch (error) {

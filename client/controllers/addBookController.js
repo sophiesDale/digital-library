@@ -11,19 +11,21 @@ export function initAddBookPage() {
 		e.preventDefault();
 
 		const data = Object.fromEntries(new FormData(form));
+		const userId = localStorage.getItem("userId");
 
 		try {
 			await createBook({
 				title: data.title,
 				author: data.author,
 				status: data.status || "unread",
+				userId: userId,
 			});
 
 			showToast("Book added!");
 
 			setTimeout(() => {
 				window.location.href = "./homePage.html";
-			}, 2000);
+			}, 1500);
 		} catch (error) {
 			alert(error.message);
 		}

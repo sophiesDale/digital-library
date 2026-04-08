@@ -1,87 +1,62 @@
 const express = require("express");
 const router = express.Router();
-const books = require("../data/books");
-const crypto = require("crypto");
-const { validateBook } = require("../middleware/library/index");
 
-// GET /books (get all books)
-router.get("/", (req, res) => {
-	res.json(books);
-});
+const {
+	createBook,
+	getBooks,
+	deleteBook,
+	updateBook,
+} = require("../data/booksService");
 
-// POST /books (create book)
-router.post("/", validateBook, (req, res) => {
-	const { title, author, status } = req.body;
+// GET all books (for user)
+router.get("/", async (req, res) => {
+	try {
+		const userId = req.query.userId;
 
-	const newBook = {
-		id: crypto.randomUUID(),
-		title,
-		author,
-		status,
-	};
+		const books = await getBooks(userId);
 
-	books.push(newBook);
-
-	res.status(201).json(newBook);
-});
-
-// GET /books/:id (get single book)
-router.get("/:id", (req, res) => {
-	const book = books.find((b) => b.id === req.params.id);
-
-	if (!book) {
-		return res.status(404).json({ error: "Book not found" });
+		res.json(books);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
 	}
-
-	res.json(book);
 });
 
-// PUT /books/:id (update entire book)
-router.put("/:id", (req, res) => {
-	const index = books.findIndex((b) => b.id === req.params.id);
+// CREATE book
+router.post("/", async (req, res) => {
+	try {
+		const { title, author, status, userId } = req.body;
 
-	if (index === -1) {
-		return res.status(404).json({ error: "Book not found" });
+		const book = await createBook({
+			title,
+			author,
+			status,
+			userId,
+		});
+
+		res.status(201).json(book);
+	} catch (err) {
+		res.status(400).json({ error: err.message });
 	}
-
-	const { title, author, status } = req.body;
-
-	books[index] = {
-		id: books[index].id,
-		title,
-		author,
-		status,
-	};
-
-	res.json(books[index]);
 });
 
-// DELETE /books/:id
-router.delete("/:id", (req, res) => {
-	const index = books.findIndex((b) => b.id === req.params.id);
-
-	if (index === -1) {
-		return res.status(404).json({ error: "Book not found" });
+// UPDATE
+router.put("/:id", async (req, res) => {
+	try {
+		const updated = await updateBook(req.params.id, req.body);
+		res.json(updated);
+	} catch (err) {
+		res.status(400).json({ error: err.message });
 	}
-
-	books.splice(index, 1);
-
-	res.json({ message: "Book deleted" });
 });
 
-// PATCH /books/:id/status (update only status)
-router.patch("/:id/status", (req, res) => {
-	const book = books.find((b) => b.id === req.params.id);
-
-	if (!book) {
-		return res.status(404).json({ error: "Book not found" });
+// DELETE
+router.delete("/:id", async (req, res) => {
+	try {
+		await deleteBook(req.params.id);
+		res.json({ message: "Deleted" });
+	} catch (err) {
+		res.status(400).json({ error: err.message });
 	}
-
-	const { status } = req.body;
-
-	book.status = status;
-
-	res.json(book);
 });
 
 module.exports = router;

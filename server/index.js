@@ -64,9 +64,8 @@ app.get("/editUser/deleteAccount.html", (req, res) => {
 		path.join(__dirname, "../client/views/editUser/deleteAccount.html")
 	);
 });
-
 // DB INIT
-async function createTable() {
+async function createTables() {
 	try {
 		await pool.query(`
 			CREATE TABLE IF NOT EXISTS users (
@@ -75,14 +74,24 @@ async function createTable() {
 				password TEXT
 			);
 		`);
-		console.log("Users table ready");
+
+		await pool.query(`
+			CREATE TABLE IF NOT EXISTS books (
+				id SERIAL PRIMARY KEY,
+				title TEXT,
+				author TEXT,
+				status TEXT,
+				user_id INTEGER
+			);
+		`);
+
+		console.log("Tables ready");
 	} catch (err) {
-		console.error("Error creating table:", err);
+		console.error("Error creating tables:", err);
 	}
 }
 
-createTable();
-
+createTables();
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

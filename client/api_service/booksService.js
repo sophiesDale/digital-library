@@ -7,6 +7,6 @@ export async function createBook(book) {
 	});
 }
 
-export async function getBooks() {
-	return await apiFetch("/books");
+export async function getBooks(userId) {
+	return await apiFetch(`/books?userId=${userId}`);
 }
