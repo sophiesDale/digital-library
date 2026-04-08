@@ -80,8 +80,6 @@ async function updateUsername(id, newUsername) {
 	return result.rows[0];
 }
 
-const bcrypt = require("bcrypt");
-
 async function updatePassword(id, newPassword) {
 	const hashedPassword = await bcrypt.hash(newPassword, 10);
 
