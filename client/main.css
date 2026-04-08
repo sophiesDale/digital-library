@@ -154,18 +154,22 @@ input:focus {
 }
 
 .big-btn {
-  display: block;
-  padding: 1rem;
-  border-radius: 999px;
-  background: var(--espresso);
-  color: var(--peony);
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.2s;
+	display: block;
+	padding: 1.3rem;
+	border-radius: 999px;
+	background: var(--espresso);
+	color: var(--peony);
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
+	transition: 0.2s;
+	min-width: 260px;
 }
 
 .big-btn:hover {
-  opacity: 0.85;
+	transform: scale(1.05);
+	box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .big-btn.outline {
