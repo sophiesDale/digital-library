@@ -1,184 +1,180 @@
 :root {
-    --espresso: #3E2723;
-    --peony: #F4C9D6;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--peony);
-    color: var(--espresso);
-  }
-  
-  /* NAVBAR */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--espresso);
-    color: var(--peony);
-    padding: 1rem 2rem;
-  }
+  --espresso: #3E2723;
+  --peony: #F4C9D6;
+}
 
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  /* MAIN */
-  .container {
-    max-width: 900px;   
-    margin: 0 auto;     
-    padding: 2rem 1rem; 
-  }
-  
-  h1 {
-    margin-bottom: 1rem;
-  }
-  
-  /* BUTTONS */
-  .btn {
-    background: var(--espresso);
-    color: var(--peony);
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 999px;
-    cursor: pointer;
-  }
-  
-  .btn.small {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  
-  .btn.danger {
-    background: #a94442;
-  }
-  
-  .add-btn {
-    margin-bottom: 1.5rem;
-  }
-  
-  /* BOOK LIST */
-  .book-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .book-item {
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-  
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .book-item div {
-    display: flex;
-    gap: 0.5rem;
-  }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--peony);
+  color: var(--espresso);
+}
 
-  .icon {
-    width: 28px;
-    height: 28px;
-    fill: var(--peony);
-    stroke: var(--espresso);
-    stroke-width: 1.5;
-  }
-  
-  .icon:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--espresso);
+  color: var(--peony);
+  padding: 1rem 2rem;
+}
 
-  /* FORM CARD CENTERING */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* MAIN */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+/* BUTTONS */
+.btn {
+  background: var(--espresso);
+  color: var(--peony);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.btn.small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.btn.danger {
+  background: #a94442;
+}
+
+.add-btn {
+  margin-bottom: 1.5rem;
+}
+
+/* BOOK LIST */
+.book-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.book-item {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-item div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ICONS */
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--peony);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* BIG ICON (arrow) */
+.icon-big {
+  width: 36px;
+  height: 36px;
+}
+
+/* FORM CARD */
 .form-card {
-    max-width: 500px;
-    margin: 2rem auto;
-  }
-  
-  /* FORM LAYOUT */
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  /* INPUT STYLING */
-  input {
-    padding: 0.7rem;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-  }
-  
-  /* FOCUS EFFECT (this makes it feel premium) */
-  input:focus {
-    outline: none;
-    border: 1px solid var(--espresso);
-  }
-  
-  /* BUTTON SPACING */
-  .add-btn {
-    margin: 1rem 0;
-  }
+  max-width: 500px;
+  margin: 2rem auto;
+}
 
-  /* CENTER PAGE */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input {
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid var(--espresso);
+}
+
+/* CENTER PAGE */
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* FRONT CARD */
-  .front-card {
-    text-align: center;
-    padding: 3rem;
-    max-width: 400px;
-  }
-  
-  /* TITLE */
-  .title {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-  }
-  
-  /* BUTTON CONTAINER */
-  .front-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  /* BIG BUTTONS */
-  .big-btn {
-    display: block;
-    padding: 1rem;
-    border-radius: 999px;
-    background: var(--espresso);
-    color: var(--peony);
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.2s;
-  }
-  
-  .big-btn:hover {
-    opacity: 0.85;
-  }
-  
-  /* OUTLINE BUTTON (secondary) */
-  .big-btn.outline {
-    background: transparent;
-    border: 2px solid var(--espresso);
-    color: var(--espresso);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  /* ROW INPUTS */
+/* FRONT PAGE */
+.front-card {
+  text-align: center;
+  padding: 3rem;
+  max-width: 400px;
+}
+
+.title {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.front-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.big-btn {
+  display: block;
+  padding: 1rem;
+  border-radius: 999px;
+  background: var(--espresso);
+  color: var(--peony);
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.big-btn:hover {
+  opacity: 0.85;
+}
+
+.big-btn.outline {
+  background: transparent;
+  border: 2px solid var(--espresso);
+  color: var(--espresso);
+}
+
+/* ROW */
 .row {
   display: flex;
   gap: 1rem;
@@ -228,11 +224,7 @@
   overflow-y: auto;
 }
 
-.modal-text {
-  margin: 1rem 0;
-  font-size: 0.9rem;
-}
-
+/* USER ACTIONS */
 .user-actions {
   display: flex;
   gap: 1rem;
@@ -245,59 +237,38 @@
   border-radius: 20px;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  fill: #F4C9D6; /* your pink */
-  cursor: pointer;
-}
-select {
-	appearance: none;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-
-	background: var(--espresso);
-	color: var(--peony);
-
-	border: 2px solid rgba(244, 201, 214, 0.6);
-	border-radius: 999px;
-
-	padding: 8px 36px 8px 14px;
-	font-size: 14px;
-	font-weight: 500;
-
-	cursor: pointer;
-	outline: none;
-
-	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-
-	background-image: url("data:image/svg+xml;utf8,<svg fill='%23f4c9d6' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-	background-repeat: no-repeat;
-	background-position: right 10px center;
-	background-size: 16px;
-}
-
-select:hover {
-	transform: scale(1.03);
-}
-
-select:focus {
-	border-color: var(--peony);
-	box-shadow: 0 0 0 3px rgba(244, 201, 214, 0.3);
-}
+/* ✨ DROPDOWN (FIXED + CONSISTENT) */
 .navbar select {
-	margin-right: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: var(--espresso);
+  color: var(--peony);
+
+  border: 2px solid rgba(244, 201, 214, 0.6);
+  border-radius: 999px;
+
+  padding: 8px 36px 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  outline: none;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23f4c9d6' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.navbar select:hover {
+  transform: scale(1.05);
+}
+
+.navbar select:focus {
+  border-color: var(--peony);
+  box-shadow: 0 0 0 3px rgba(244, 201, 214, 0.3);
 }
