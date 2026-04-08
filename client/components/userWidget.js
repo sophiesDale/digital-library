@@ -278,19 +278,69 @@ class UserWidget extends HTMLElement {
 
 					const result = await response.json();
 
-					// ❗ CHECK IF FAILED
+					// CHECK IF FAILED
 					if (!response.ok) {
 						alert(result.error || "Failed to delete account");
-						return; // STOP HERE
+						return;
 					}
 
-					// ✅ SUCCESS
+					// SUCCESS
 					localStorage.removeItem("userId");
 					window.location.href = "/client/views/frontPage.html";
 				} catch (error) {
 					console.error(error);
 					alert("Server error");
 				}
+			});
+		}
+		if (this.mode === "edit-username") {
+			const form = this.querySelector("#username-form");
+
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+
+				const data = Object.fromEntries(new FormData(form));
+				const userId = localStorage.getItem("userId");
+
+				const response = await fetch(`/users/${userId}/username`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ username: data.username }),
+				});
+
+				if (!response.ok) {
+					alert("Failed to update username");
+					return;
+				}
+
+				alert("Username updated!");
+			});
+		}
+		if (this.mode === "edit-password") {
+			const form = this.querySelector("#password-form");
+
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+
+				const data = Object.fromEntries(new FormData(form));
+				const userId = localStorage.getItem("userId");
+
+				const response = await fetch(`/users/${userId}/password`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ password: data.password }),
+				});
+
+				if (!response.ok) {
+					alert("Failed to update password");
+					return;
+				}
+
+				alert("Password updated!");
 			});
 		}
 	}

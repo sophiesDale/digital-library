@@ -67,9 +67,37 @@ async function deleteUser(id, password) {
 	return { message: "User deleted" };
 }
 
+async function updateUsername(id, newUsername) {
+	const result = await pool.query(
+		"UPDATE users SET username = $1 WHERE id = $2 RETURNING *",
+		[newUsername, id]
+	);
+
+	if (result.rows.length === 0) {
+		throw new Error("User not found");
+	}
+
+	return result.rows[0];
+}
+
+async function updatePassword(id, newPassword) {
+	const result = await pool.query(
+		"UPDATE users SET password = $1 WHERE id = $2 RETURNING *",
+		[newPassword, id]
+	);
+
+	if (result.rows.length === 0) {
+		throw new Error("User not found");
+	}
+
+	return result.rows[0];
+}
+
 module.exports = {
 	createUser,
 	loginUser,
 	getUsers,
 	deleteUser,
+	updateUsername,
+	updatePassword,
 };

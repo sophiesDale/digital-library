@@ -4,6 +4,8 @@ const {
 	loginUser,
 	deleteUser,
 	getUsers,
+	updateUsername,
+	updatePassword,
 } = require("../data/usersService");
 
 const router = express.Router();
@@ -48,6 +50,26 @@ router.delete("/:id", async (req, res) => {
 		res.json(result);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
+	}
+});
+
+// UPDATE USERNAME
+router.put("/:id/username", async (req, res) => {
+	try {
+		const user = await updateUsername(req.params.id, req.body.username);
+		res.json(user);
+	} catch (err) {
+		res.status(400).json({ error: err.message });
+	}
+});
+
+// UPDATE PASSWORD
+router.put("/:id/password", async (req, res) => {
+	try {
+		const user = await updatePassword(req.params.id, req.body.password);
+		res.json(user);
+	} catch (err) {
+		res.status(400).json({ error: err.message });
 	}
 });
 
