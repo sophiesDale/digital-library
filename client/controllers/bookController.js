@@ -9,53 +9,69 @@ export function initBookPage() {
 
 	loadBooks(list);
 }
+
 async function loadBooks(container) {
+	let books = [];
+
 	try {
 		const userId = localStorage.getItem("userId");
-		const books = await getBooks(userId);
 
-		container.innerHTML = "";
+		books = await getBooks(userId);
 
-		if (books.length === 0) {
-			container.innerHTML = "<p>No books yet</p>";
-			return;
-		}
+		localStorage.setItem("books", JSON.stringify(books));
+	} catch (error) {
+		console.warn("Offline mode: loading cached books");
 
-		books.forEach((book, index) => {
-			const div = document.createElement("div");
-			div.className = "book-item";
+		books = JSON.parse(localStorage.getItem("books")) || [];
+	}
 
-			div.innerHTML = `
-        <span>
-          ${index + 1}. ${book.title} - ${book.author}
-          <em>(${book.status})</em>
-        </span>
-        <div>
-          <button class="btn small edit-btn">Edit</button>
-          <button class="btn small danger delete-btn">Delete</button>
-        </div>
-      `;
+	container.innerHTML = "";
 
-			const deleteBtn = div.querySelector(".delete-btn");
+	if (books.length === 0) {
+		container.innerHTML = "<p>No books yet</p>";
+		return;
+	}
 
-			deleteBtn.addEventListener("click", async () => {
+	books.forEach((book, index) => {
+		const div = document.createElement("div");
+		div.className = "book-item";
+
+		div.innerHTML = `
+			<span>
+				${index + 1}. ${book.title} - ${book.author}
+				<em>(${book.status})</em>
+			</span>
+			<div>
+				<button class="btn small edit-btn">Edit</button>
+				<button class="btn small danger delete-btn">Delete</button>
+			</div>
+		`;
+
+		const deleteBtn = div.querySelector(".delete-btn");
+
+		deleteBtn.addEventListener("click", async () => {
+			try {
 				await apiFetch(`/books/${book.id}`, {
 					method: "DELETE",
 				});
+			} catch {
+				console.warn("Offline: delete will sync later");
+			}
 
-				loadBooks(container);
-			});
+			loadBooks(container);
+		});
 
-			const editBtn = div.querySelector(".edit-btn");
+		const editBtn = div.querySelector(".edit-btn");
 
-			editBtn.addEventListener("click", async () => {
-				const newTitle = prompt("New title:", book.title);
-				const newAuthor = prompt("New author:", book.author);
-				const newStatus = prompt(
-					"Status (unread/reading/finished):",
-					book.status
-				);
+		editBtn.addEventListener("click", async () => {
+			const newTitle = prompt("New title:", book.title);
+			const newAuthor = prompt("New author:", book.author);
+			const newStatus = prompt(
+				"Status (unread/reading/finished):",
+				book.status
+			);
 
+			try {
 				await apiFetch(`/books/${book.id}`, {
 					method: "PUT",
 					body: JSON.stringify({
@@ -64,13 +80,13 @@ async function loadBooks(container) {
 						status: newStatus,
 					}),
 				});
+			} catch {
+				console.warn("Offline: edit will sync later");
+			}
 
-				loadBooks(container);
-			});
-
-			container.appendChild(div);
+			loadBooks(container);
 		});
-	} catch (error) {
-		console.error(error);
-	}
+
+		container.appendChild(div);
+	});
 }
