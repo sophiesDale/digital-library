@@ -337,3 +337,7 @@ input:focus {
 	border: 1px solid var(--espresso);
 	box-shadow: 0 0 0 3px rgba(62, 39, 35, 0.15);
 }
+
+.nav-right {
+	margin-left: auto;
+}
