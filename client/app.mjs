@@ -103,3 +103,6 @@ export function showToast(message) {
 		toast.style.opacity = "0";
 	}, 1500);
 }
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register("/sw.js");
+}
