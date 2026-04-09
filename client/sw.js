@@ -4,8 +4,14 @@ const urlsToCache = ["/", "/frontPage.html", "/main.css", "/app.mjs"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			return cache.addAll(urlsToCache);
+		caches.open(CACHE_NAME).then(async (cache) => {
+			for (const url of urlsToCache) {
+				try {
+					await cache.add(url);
+				} catch (err) {
+					console.warn("Failed to cache:", url);
+				}
+			}
 		})
 	);
 });
