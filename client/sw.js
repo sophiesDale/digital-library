@@ -18,18 +18,22 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
 	event.respondWith(
-		fetch(event.request)
-			.then((response) => {
-				const clone = response.clone();
+		caches.match(event.request).then((cached) => {
+			if (cached) return cached;
 
-				caches.open(CACHE_NAME).then((cache) => {
-					cache.put(event.request, clone);
+			return fetch(event.request)
+				.then((response) => {
+					const clone = response.clone();
+
+					caches.open(CACHE_NAME).then((cache) => {
+						cache.put(event.request, clone);
+					});
+
+					return response;
+				})
+				.catch(() => {
+					return caches.match("/");
 				});
-
-				return response;
-			})
-			.catch(() => {
-				return caches.match(event.request);
-			})
+		})
 	);
 });
