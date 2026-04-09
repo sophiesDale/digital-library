@@ -1,6 +1,6 @@
 const CACHE_NAME = "library-cache-v1";
 
-const urlsToCache = ["/", "/frontPage.html", "/main.css", "/app.mjs"];
+const urlsToCache = ["/", "/main.css", "/app.mjs"];
 
 self.addEventListener("install", (event) => {
 	event.waitUntil(
