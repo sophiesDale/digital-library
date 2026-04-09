@@ -7,25 +7,30 @@
 		<link rel="manifest" href="/manifest.json" />
 	</head>
 	<body>
-		<nav class="navbar">
-			<div></div>
-
+		<nav class="navbar" role="navigation" aria-label="Main navigation">
 			<div class="nav-right">
-				<select id="lang-switch">
+				<label for="lang-switch" class="sr-only">Language</label>
+				<select id="lang-switch" aria-label="Select language" name="language">
 					<option value="en">EN</option>
 					<option value="no">NO</option>
 				</select>
 			</div>
 		</nav>
 
-		<main class="center">
+		<main class="center" role="main">
 			<div class="card front-card">
 				<div class="front-buttons">
-					<a href="/loginPage.html" class="big-btn" data-i18n="login"></a>
+					<a
+						href="/loginPage.html"
+						class="big-btn"
+						data-i18n="login"
+						aria-label="Go to Log In page"
+					></a>
 					<a
 						href="/createUser.html"
 						class="big-btn outline"
 						data-i18n="createAccount"
+						aria-label="Go to create account page"
 					></a>
 				</div>
 			</div>

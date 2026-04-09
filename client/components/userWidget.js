@@ -13,10 +13,15 @@ class UserWidget extends HTMLElement {
 			this.innerHTML = `
 				<div class="card form-card">
 					<h1 data-i18n="login"></h1>
-					<form id="login-form" class="form">
-						<input name="username" data-i18n-placeholder="username" required />
-						<input name="password" type="password" data-i18n-placeholder="password" required />
-						<button class="btn" data-i18n="login"></button>
+
+					<form id="login-form" class="form" aria-label="Login form">
+						<label for="login-username" class="sr-only">Username</label>
+						<input id="login-username" name="username" aria-label="Username" data-i18n-placeholder="username" required />
+
+						<label for="login-password" class="sr-only">Password</label>
+						<input id="login-password" name="password" type="password" aria-label="Password" data-i18n-placeholder="password" required />
+
+						<button type="submit" class="btn" aria-label="Log in" data-i18n="login"></button>
 					</form>
 				</div>
 			`;
@@ -27,16 +32,19 @@ class UserWidget extends HTMLElement {
 				<div class="card form-card">
 					<h1 data-i18n="createAccount"></h1>
 
-					<form id="create-form" class="form">
-						<input name="username" data-i18n-placeholder="username" required />
-						<input name="password" type="password" data-i18n-placeholder="password" required />
+					<form id="create-form" class="form" aria-label="Create account form">
+						<label for="create-username" class="sr-only">Username</label>
+						<input id="create-username" name="username" aria-label="Username" data-i18n-placeholder="username" required />
+
+						<label for="create-password" class="sr-only">Password</label>
+						<input id="create-password" name="password" type="password" aria-label="Password" data-i18n-placeholder="password" required />
 
 						<label class="checkbox">
-							<input name="consent" type="checkbox" required />
+							<input name="consent" type="checkbox" aria-label="Agree to terms" required />
 							I agree
 						</label>
 
-						<button class="btn" data-i18n="createAccount"></button>
+						<button type="submit" class="btn" aria-label="Create account" data-i18n="createAccount"></button>
 					</form>
 				</div>
 			`;
@@ -47,9 +55,11 @@ class UserWidget extends HTMLElement {
 				<div class="card form-card">
 					<h1 data-i18n="changeUsername"></h1>
 
-					<form id="username-form" class="form">
-						<input name="username" data-i18n-placeholder="username" required />
-						<button class="btn" data-i18n="save"></button>
+					<form id="username-form" class="form" aria-label="Change username form">
+						<label for="edit-username" class="sr-only">New username</label>
+						<input id="edit-username" name="username" aria-label="New username" data-i18n-placeholder="username" required />
+
+						<button type="submit" class="btn" aria-label="Save username" data-i18n="save"></button>
 					</form>
 				</div>
 			`;
@@ -60,9 +70,11 @@ class UserWidget extends HTMLElement {
 				<div class="card form-card">
 					<h1 data-i18n="changePassword"></h1>
 
-					<form id="password-form" class="form">
-						<input name="password" type="password" data-i18n-placeholder="password" required />
-						<button class="btn" data-i18n="save"></button>
+					<form id="password-form" class="form" aria-label="Change password form">
+						<label for="edit-password" class="sr-only">New password</label>
+						<input id="edit-password" name="password" type="password" aria-label="New password" data-i18n-placeholder="password" required />
+
+						<button type="submit" class="btn" aria-label="Save password" data-i18n="save"></button>
 					</form>
 				</div>
 			`;
@@ -73,9 +85,11 @@ class UserWidget extends HTMLElement {
 				<div class="card form-card">
 					<h1 data-i18n="deleteAccount"></h1>
 
-					<form id="delete-form" class="form">
-						<input name="password" type="password" data-i18n-placeholder="password" required />
-						<button class="btn danger" data-i18n="deleteAccount"></button>
+					<form id="delete-form" class="form" aria-label="Delete account form">
+						<label for="delete-password" class="sr-only">Confirm password</label>
+						<input id="delete-password" name="password" type="password" aria-label="Confirm password" data-i18n-placeholder="password" required />
+
+						<button type="submit" class="btn danger" aria-label="Delete account" data-i18n="deleteAccount"></button>
 					</form>
 				</div>
 			`;
@@ -83,7 +97,6 @@ class UserWidget extends HTMLElement {
 	}
 
 	attachEvents() {
-		// LOGIN
 		if (this.mode === "login") {
 			const form = this.querySelector("#login-form");
 
@@ -118,7 +131,6 @@ class UserWidget extends HTMLElement {
 			});
 		}
 
-		// CREATE USER
 		if (this.mode === "create") {
 			const form = this.querySelector("#create-form");
 
@@ -148,7 +160,6 @@ class UserWidget extends HTMLElement {
 			});
 		}
 
-		// DELETE
 		if (this.mode === "delete") {
 			const form = this.querySelector("#delete-form");
 
@@ -182,7 +193,6 @@ class UserWidget extends HTMLElement {
 			});
 		}
 
-		// UPDATE USERNAME
 		if (this.mode === "edit-username") {
 			const form = this.querySelector("#username-form");
 
@@ -207,7 +217,6 @@ class UserWidget extends HTMLElement {
 			});
 		}
 
-		// UPDATE PASSWORD
 		if (this.mode === "edit-password") {
 			const form = this.querySelector("#password-form");
 

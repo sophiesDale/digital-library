@@ -7,24 +7,25 @@
 		<link rel="manifest" href="/manifest.json" />
 	</head>
 	<body>
-		<nav class="navbar">
+		<nav class="navbar" role="navigation" aria-label="Main navigation">
 			<div class="nav-left">
-				<a href="/">
-					<svg class="icon icon-big" viewBox="0 0 24 24">
+				<a href="/" aria-label="Go back to front page">
+					<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
 						<path d="M15 6L9 12L15 18V14H21V10H15V6Z" fill="#F4C9D6" />
 					</svg>
 				</a>
 			</div>
 
 			<div class="nav-right">
-				<select id="lang-switch">
+				<label for="lang-switch" class="sr-only">Language</label>
+				<select id="lang-switch" aria-label="Select language" name="language">
 					<option value="en">EN</option>
 					<option value="no">NO</option>
 				</select>
 			</div>
 		</nav>
 
-		<main class="center">
+		<main class="center" role="main">
 			<user-widget mode="login"></user-widget>
 		</main>
 

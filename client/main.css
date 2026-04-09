@@ -276,3 +276,59 @@ input:focus {
   border-color: var(--peony);
   box-shadow: 0 0 0 3px rgba(244, 201, 214, 0.3);
 }
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}
+
+:focus {
+	outline: 3px solid var(--espresso);
+	outline-offset: 2px;
+}
+
+
+.form select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+
+	width: 100%;
+	padding: 0.7rem;
+
+	border-radius: 10px;
+	border: 1px solid #ddd;
+
+	background-color: white;
+	color: var(--espresso);
+
+	font-size: 1rem;
+	font-family: inherit;
+
+	cursor: pointer;
+
+	background-image: url("data:image/svg+xml;utf8,<svg fill='%233E2723' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	background-size: 16px;
+
+	padding-right: 40px;
+
+	transition: all 0.2s ease;
+}
+
+.form select:hover {
+	border-color: var(--espresso);
+}
+
+.form select:focus {
+	outline: none;
+	border: 1px solid var(--espresso);
+	box-shadow: 0 0 0 3px rgba(62, 39, 35, 0.15);
+}
